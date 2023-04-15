@@ -1,0 +1,321 @@
+<html>
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .form {
+            width: 50%;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            width: 50%;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #aaf;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ccc;
+            outline: none;
+            padding-left: 10px;
+        }
+
+        .input-group button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            outline: none;
+            background-color: #aaf;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="new.html"
+         <div class="form">
+
+            <div class="tabs">
+                <div class="tab active" id="login-tab">Login</div>
+                <div class="tab" id="signup-tab">Sign up</div>
+            </div>
+
+            <div class="tab-content active" id="login-content">
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <div class="input-group">
+                    <button id="login-button">Login</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="signup-content">
+                <div class="input-group">
+                    <label for="signup-name">Name</label>
+                    <input type="text" id="signup-name" placeholder="Enter your name">
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Enter your password">
+                </div>
+                <div class="input-group">
+                    <button id="signup-button">Sign up</button>
+                </div>
+            </div>
+
+
+
+    </div>
+    </form>
+    <script>
+        // Get the elements by their ids
+        var loginTab = document.getElementById("login-tab");
+        var signupTab = document.getElementById("signup-tab");
+        var loginContent = document.getElementById("login-content");
+        var signupContent = document.getElementById("signup-content");
+        var loginButton = document.getElementById("login-button");
+        var signupButton = document.getElementById("signup-button");
+        var textInput = document.getElementById("text-input");
+        var postButton = document.getElementById("post-button");
+        var textOutput = document.getElementById("text-output");
+
+        // Declare a variable to store the name of the current user
+        var currentUserName = "";
+
+        // Add a click event listener to the login tab
+        loginTab.addEventListener("click", function () {
+
+            // Remove the active class from the signup tab and content
+            signupTab.classList.remove("active");
+            signupContent.classList.remove("active");
+
+            // Add the active class to the login tab and content
+            loginTab.classList.add("active");
+            loginContent.classList.add("active");
+
+        });
+
+        // Add a click event listener to the signup tab
+        signupTab.addEventListener("click", function () {
+
+            // Remove the active class from the login tab and content
+            loginTab.classList.remove("active");
+            loginContent.classList.remove("active");
+
+            // Add the active class to the signup tab and content
+            signupTab.classList.add("active");
+            signupContent.classList.add("active");
+
+        });
+
+        // Add a click event listener to the login button
+        loginButton.addEventListener("click", function () {
+
+            // Get the values of the login email and password inputs
+            var loginEmail = document.getElementById("login-email").value;
+            var loginPassword = document.getElementById("login-password").value;
+
+            // Check if the login email and password are not empty
+            if (loginEmail && loginPassword) {
+
+                // Get the user data from localStorage using the email as the key
+                var userData = localStorage.getItem(loginEmail);
+
+                // Check if the user data exists
+                if (userData) {
+
+                    // Parse the user data as JSON object
+                    userData = JSON.parse(userData);
+
+                    // Check if the password matches
+                    if (userData.password === loginPassword) {
+
+                        // Show an alert with a success message
+                        alert("You have logged in successfully!");
+
+                        // Here you can redirect to another page or show some user-specific content
+
+                        // Set the current user name to the name from the user data
+                        currentUserName = userData.name;
+
+                    } else {
+
+                        // Show an alert with an error message
+                        alert("Wrong password!");
+
+                    }
+
+                } else {
+
+                    // Show an alert with an error message
+                    alert("No account found with this email!");
+
+                }
+
+            } else {
+
+                // Show an alert with an error message
+                alert("Please enter your email and password!");
+
+            }
+
+        });
+
+        // Add a click event listener to the signup button
+        signupButton.addEventListener("click", function () {
+
+            // Get the values of the signup name, email and password inputs
+            var signupName = document.getElementById("signup-name").value;
+            var signupEmail = document.getElementById("signup-email").value;
+            var signupPassword = document.getElementById("signup-password").value;
+
+            // Check if the signup name, email and password are not empty
+            if (signupName && signupEmail && signupPassword) {
+
+                // Create a user object with the name, email and password properties
+                var user = {
+                    name: signupName,
+                    email: signupEmail,
+                    password: signupPassword
+                };
+
+                // Stringify the user object as JSON string
+                var userString = JSON.stringify(user);
+
+                // Store the user data in localStorage using the email as the key
+                localStorage.setItem(signupEmail, userString);
+
+                // Show an alert with a success message
+                alert("You have signed up successfully!");
+
+                // Here you can redirect to another page or show some user-specific content
+
+                // Set the current user name to the name from the user data
+                currentUserName = userData.name;
+
+            } else {
+
+                // Show an alert with an error message
+                alert("Please enter your name, email and password!");
+
+            }
+
+        });
+
+        // Define a function that handles the posting of the text
+        function postText() {
+
+            // Get the value of the text input
+            var text = textInput.value;
+
+            // Check if the text is not empty
+            if (text) {
+
+                // Create a new list item element
+                var listItem = document.createElement("li");
+
+                // Add a class name to the list item
+                listItem.className = "me";
+                
+                // Create a new span element
+                var span= currentUserName + ": " + text;
+
+                // Append the span to the list item
+                listItem.appendChild(span);
+
+                // Append the list item to the output list
+                textOutput.appendChild(listItem);
+
+                // Scroll to the bottom of the output area
+                textOutput.scrollTop = textOutput.scrollHeight;
+
+                // Clear the text input value
+                textInput.value = "";
+
+                // Focus on the text input
+                textInput.focus();
+
+            }
+
+        }
+
+        // Add a click event listener to the button
+        postButton.addEventListener("click", postText);
+
+        // Add a keydown event listener to the text input
+        textInput.addEventListener("keydown", function (event) {
+
+            // Check if the key code is 13 (which corresponds to the enter key)
+            if (event.keyCode === 13) {
+
+                // Call the postText function
+                postText();
+
+            }
+
+        });
+    </script>
+    </div>
+</body>
+
+</html>

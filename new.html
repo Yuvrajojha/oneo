@@ -1,0 +1,162 @@
+
+<html>
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+        }
+
+        .input {
+            width: 99.9%;
+            height: 15%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input textarea {
+            font-size: xx-large;
+            width: 80%;
+            height: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+        }
+
+        .input button {
+            font-size: xx-large;
+            width: 7%;
+            height: 50%;
+            border: none;
+            outline: none;
+            background-color: rgb(18, 16, 138);
+            color: white;
+        }
+
+        .output {
+            font-size: xx-large;
+            width: 99.9%;
+            height: 85%;
+            border: 3px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+
+        .output ul {
+            list-style: none;
+        }
+
+        .output li {
+            margin-bottom: 10px;
+        }
+
+        .output li span {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .output li.me span {
+            background-color: #aaf;
+            align-self: flex-end;
+        }
+
+        .output li.you span {
+            background-color: #faa;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEE Study Group</h1>
+        </div>
+        <div class="main">
+
+            <div class="output">
+                <ul id="text-output">
+                    <li class="me"><span>Hello Everyone.</span></li>
+                    <li class="you"><span>Hi, let's start messaging .</span></li>
+                </ul>
+            </div>
+
+            <div class="input">
+                <textarea id="text-input" placeholder="Type any text here..."></textarea>
+                <button id="post-button">Post</button>
+            </div>
+        </div>
+        <script>
+            // Get the elements by their ids
+            var textInput = document.getElementById("text-input");
+            var postButton = document.getElementById("post-button");
+            var textOutput = document.getElementById("text-output");
+
+            // Add a click event listener to the button
+            postButton.addEventListener("click", function () {
+
+                // Get the value of the text input
+                var text = textInput.value;
+
+                // Check if the text is not empty
+                if (text) {
+
+                    // Create a new list item element
+                    var listItem = document.createElement("li");
+
+                    // Add a class name to the list item
+                    listItem.className = "me";
+
+                    // Create a new span element
+                    var span = document.createElement("span");
+
+                    // Set the text content of the span to the text input value
+                    span.textContent = text;
+
+                    // Append the span to the list item
+                    listItem.appendChild(span);
+
+                    // Append the list item to the output list
+                    textOutput.appendChild(listItem);
+
+                    // Scroll to the bottom of the output area
+                    textOutput.scrollTop = textOutput.scrollHeight;
+
+                    // Clear the text input value
+                    textInput.value = "";
+
+                    // Focus on the text input
+                    textInput.focus();
+
+                }
+
+            });
+        </script>
+</body>
+
+</html>
